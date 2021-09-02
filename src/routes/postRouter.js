@@ -15,7 +15,7 @@ router.post("/", async(req, res) => {
     }
 });
 
-router.put("/deletepost",  async(req, res) => {
+router.put("/deletepost", authenticate,  async(req, res) => {
     try {
         const postId = req.body.postId;
         const userId = req.body.userId;
