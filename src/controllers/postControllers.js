@@ -20,20 +20,28 @@ class Msj {
   }
 
   async modifyPost(body) {
-    console.log(body)
     //Datos que cambiamos
-    await Post.update(
+    return Post.update(
       {
         title: body.title,
         content: body.content,
       },
       //Donde
-      { where: { id: body.postId } }
+      { where: { id: body.id } }
     );
+    // return Post.findOne({
+    //   where: { id: body.userId },
+    // });
 
-    return Post.findOne({
-      where: { id: body.userId },
-    });
+    //   return Post.findOne(
+    //     //DAtos que cambiamos
+    //     {  id: body.postId },
+    //     //Donde
+    //     { where: {title: body.title, content: body.content}},
+    //     //Donde...
+    //     // {where: {id: data.id}}
+
+    // )
   }
 
   async removePost(postId, userId) {
