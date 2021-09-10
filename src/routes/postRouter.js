@@ -27,7 +27,6 @@ router.put("/deletepost", authenticate,  async(req, res) => {
     }
 });
 
-//El administrador podrá ver todos los posts
 router.get("/",  async(req, res) => {
     try {
         res.json(await postControllers.findAllPost());
@@ -52,8 +51,7 @@ router.post("/userpost",  async(req, res) => {
 
 router.put("/updatepost", authenticate, async(req, res) => {
     try {
-        console.log('req',req.post)
-        const body = req.post;
+        const body = req.body;
         res.json(await postControllers.modifyPost(body));
     } catch (error) {
         return res.status(500).json({
