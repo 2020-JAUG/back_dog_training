@@ -3,7 +3,7 @@ const postControllers = require("../controllers/postControllers");
 const authenticate = require("../middleware/authenticate");
 const admin = require("../middleware/admin");
 
-router.post("/", async(req, res) => {
+router.post("/", authenticate, async(req, res) => {
     try {
         const id = await postControllers.makePost(req.body);
         const status = "success";
