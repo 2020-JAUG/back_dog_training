@@ -40,7 +40,7 @@ router.get("/",  async(req, res) => {
 //Para traer los posts de un usuario por id
 router.post("/userpost",  async(req, res) => {
     try {
-        const userId = req.body.userId;
+        const userId = req.body.id;
         res.json(await postControllers.findPostByUserId(userId));
     } catch (error) {
         return res.status(500).json({
