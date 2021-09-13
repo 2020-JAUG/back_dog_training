@@ -2,10 +2,24 @@ const router = require("express").Router();
 const postControllers = require("../controllers/postControllers");
 const authenticate = require("../middleware/authenticate");
 const admin = require("../middleware/admin");
+const multer = require("multer");
+const path = require("path");
 
-router.post("/", authenticate, async(req, res) => {
+const diskstorage = multer.diskStorage({
+    destination: path.join(__dirname, '../image'),
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-doogtraining-' + file.originalname);
+    }
+});
+
+const fileUpload = multer({
+    storage: diskstorage
+}).single("image");
+
+router.post("/", authenticate, fileUpload, async(req, res) => {
     try {
         const id = await postControllers.makePost(req.body);
+        console.log(req.files,'-----> .body.files', req.body,files)
         const status = "success";
         res.json({ status, id });
     } catch (error) {
