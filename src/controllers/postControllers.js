@@ -10,7 +10,7 @@ class Msj {
   }
 
   async findAllPost() {
-    return Post.findAll({ order: [['updatedAt', 'DESC']]});
+    return Post.findAll();
   }
 
   async findPostByUserId(userId) {
