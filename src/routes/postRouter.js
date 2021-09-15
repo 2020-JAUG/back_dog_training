@@ -19,7 +19,6 @@ const fileUpload = multer({
 router.post("/", authenticate, fileUpload, async(req, res) => {
     try {
         const id = await postControllers.makePost(req.body);
-        console.log(req.files,'-----> .body.files', req.body,files)
         const status = "success";
         res.json({ status, id });
     } catch (error) {
