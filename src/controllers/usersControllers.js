@@ -14,16 +14,22 @@ class Users {
     return User.findAll({ where: { image: body.image } });
   }
 
-  async uploadFiles() {
-    Image.create({
-      //   type: req.file.mimetype,
-      //   name: req.file.originalname,
-      data: fs.readFileSync(__dirname + "../image/" + req.file.filename),
-      // }).then((image) => {
-      //   fs.writeFileSync(__dirname + "../image/" + image.name, image.data);
-      //   return res.send(`File has been uploaded.`);
-    });
-    return Image.create();
+  async uploadFiles(image, userId) {
+    // Image.create({
+    //   //   type: req.file.mimetype,
+    //   //   name: req.file.originalname,
+    //   data: fs.readFileSync(__dirname + "../image/" + req.file.filename),
+    //   // }).then((image) => {
+    //   //   fs.writeFileSync(__dirname + "../image/" + image.name, image.data);
+    //   //   return res.send(`File has been uploaded.`);
+    // });
+    // return Image.create();
+    let usuario = await User.findByPk(userId);
+    if (usuario.id === id) {
+      return User.update({ where: { image: image } });
+    } else {
+      throw new Error("Action canceled.");
+    }
   }
 
   async nameUser(name) {
