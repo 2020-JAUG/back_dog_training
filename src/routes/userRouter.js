@@ -6,7 +6,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-const conncetion = require("../config/config.json");
+const connection = require("../config/config.json");
 
 //Para indicarle donde guardar las imagenes
 const diskstorage = multer.diskStorage({
@@ -35,30 +35,33 @@ router.post("/", async (req, res) => {
 // router.post("/image", fileUpload("image"), usersControllers.imageUpload);
 
 router.post("/image", fileUpload, async (req, res) => {
-    // try {
-    //     const image = req.file.originalname;
-    //     res.json(await usersControllers.uploadFiles(image));
-    //   } catch (error) {
-    //     return res.status(500).json({
-    //       message: error.message,
-    //     });
-    //   }
-  conncetion((err, conn) => {
-      if(err) return res.status(500).send("Server error");
+    try {
+        const image = req.file;
+        const userId = req.file.originalname;
+        res.json(await usersControllers.uploadFiles(image, userId));
+        console.log('image-->', image, 'userId-->',userId);
+        // console.log(image);
+      } catch (error) {
+        return res.status(500).json({
+          message: error.message,
+        });
+      }
+  // conncetion((err, conn) => {
+  //     if(err) return res.status(500).send("Server error");
 
-      //Guardamos el tipo de archivo
-    //   const type = req.file.mimetype
-    //   const name = req.file.originalname
-      //Para leer el archivo con el módulo fs
-      const data = fs.readFileSync(path.join(__dirname, '../image/' + req.file.filename));
+  //     //Guardamos el tipo de archivo
+  //   //   const type = req.file.mimetype
+  //   //   const name = req.file.originalname
+  //     //Para leer el archivo con el módulo fs
+  //     const data = fs.readFileSync(path.join(__dirname, '../image/' + req.file.filename));
 
-      //Realizamos la query para insertar la img en la tabla
-      query("INSERT INTO image set ?", [{image: data}], (err, rows) => {
-          if(err) return res.status(500).send("Server error");
+  //     //Realizamos la query para insertar la img en la tabla
+  //     query("INSERT INTO image set ?", [{image: data}], (err, rows) => {
+  //         if(err) return res.status(500).send("Server error");
 
-          res.send("Image saved.");
-      });
-  });
+  //         res.send("Image saved.");
+  //     });
+  // });
 });
 
 router.get("/:id", admin, async (req, res) => {
