@@ -12,7 +12,7 @@ const connection = require("../config/config.json");
 const diskstorage = multer.diskStorage({
   destination: path.join(__dirname, "../image"),
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "_user_doog_training_" + file.originalname);
+    cb(null, Date.now() + "_user_doog_training_" + file.originalname.split("/")[0] + "." + file.mimetype.split('/')[1]);
   },
 });
 //Asignamos el valor de la imagen a la const fileUpload
@@ -35,6 +35,7 @@ router.post("/", async (req, res) => {
 // router.post("/image", fileUpload("image"), usersControllers.imageUpload);
 
 router.post("/image", fileUpload, async (req, res) => {
+  
     try {
         const image = req.file;
         const userId = req.file.originalname;
