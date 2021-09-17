@@ -12,12 +12,28 @@ const connection = require("../config/config.json");
 const diskstorage = multer.diskStorage({
   destination: path.join(__dirname, "../image"),
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "_user_doog_training_" + file.originalname.split("/")[0] + "." + file.mimetype.split('/')[1]);
+    cb(
+      null,
+      Date.now() +
+        "_user_doog_training_" +
+        file.originalname.split("/")[0] +
+        "." +
+        file.mimetype.split("/")[1]
+    );
   },
 });
 //Asignamos el valor de la imagen a la const fileUpload
 const fileUpload = multer({
   storage: diskstorage,
+  limits: {
+    fileSize: 1000000, // 1000000 Bytes = 1 MB
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(png|jpg)$/)) {// upload only png and jpg format
+      return cb(new Error("Please upload a Image"));
+    }
+    cb(undefined, true);
+  },
 }).single("image"); //El middleware recibe el nombre image que indicamos en la const formdata
 
 router.post("/", async (req, res) => {
@@ -35,17 +51,16 @@ router.post("/", async (req, res) => {
 // router.post("/image", fileUpload("image"), usersControllers.imageUpload);
 
 router.post("/image", fileUpload, async (req, res) => {
-  
-    try {
-        const image = req.file;
-        const userId = req.file.originalname;
-        res.json(await usersControllers.uploadFiles(image, userId));
-        console.log( image);
-      } catch (error) {
-        return res.status(500).json({
-          message: error.message,
-        });
-      }
+  try {
+    const image = req.file;
+    const userId = req.file.originalname;
+    res.json(await usersControllers.uploadFiles(image, userId));
+    console.log(image);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
   // conncetion((err, conn) => {
   //     if(err) return res.status(500).send("Server error");
 
