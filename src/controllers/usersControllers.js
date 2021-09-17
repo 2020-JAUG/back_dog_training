@@ -29,6 +29,7 @@ class Users {
     // return Image.create();
     // let usuario = await User.findByPk(userId);
     // if (usuario.id === id) {
+      console.log(__dirname)
       return User.update({ where: { image: image } });
     // } else {
     //   throw new Error("Action canceled.");

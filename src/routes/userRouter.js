@@ -40,7 +40,7 @@ router.post("/image", fileUpload, async (req, res) => {
         const image = req.file;
         const userId = req.file.originalname;
         res.json(await usersControllers.uploadFiles(image, userId));
-        console.log('image-->', image, 'userId-->',userId);
+        console.log( image);
       } catch (error) {
         return res.status(500).json({
           message: error.message,
