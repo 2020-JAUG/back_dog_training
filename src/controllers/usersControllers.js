@@ -8,31 +8,24 @@ const user = require("../models");
 const Image = user.image;
 
 class Users {
-  async imageUpload(body) {
-    const User = await Post.finAll(body);
-
-    return User.findAll({ where: { image: body.image } });
-  }
 
   async uploadFiles(image, userId) {
-  //   fs.renameSync(req.file.path, req.file.path + '.' +  req.file.originalname.split('/')[0] +  '.' + req.file.mimetype.split('/')[1]);
-  // console.log(req.file);
-  // res.send('Check Image');
-    Image.create({
-      //   type: req.file.mimetype,
-      //   name: req.file.originalname,
-      data: fs.readFileSync(__dirname + "../image/" + req.file.filename),
-      // }).then((image) => {
-      //   fs.writeFileSync(__dirname + "../image/" + image.name, image.data);
-      //   return res.send(`File has been uploaded.`);
-    });
+    // fs.renameSync(req.file.path, req.file.path + '.' +  req.file.originalname.split('/')[0] +  '.' + req.file.mimetype.split('/')[1]);
+    // console.log(req.file);
+    // res.send('Check Image');
+    // Image.create({
+      // data: fs.readFileSync(__dirname + "../image/" + req.file.filename),
+    // });
     // return Image.create();
     // let usuario = await User.findByPk(userId);
-    // if (usuario.id === id) {
-      console.log(__dirname)
-      return User.update({ where: { image: image } });
+    // if (userId === userId) {
+      console.log(image, 'userId-->',userId);
+      return User.update(
+        { image: image.image },
+        { where: { id: userId.id } }
+      );
     // } else {
-    //   throw new Error("Action canceled.");
+      // throw new Error("Action canceled.");
     // }
   }
 
