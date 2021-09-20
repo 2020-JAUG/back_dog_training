@@ -4,9 +4,6 @@ const authenticate = require("../middleware/authenticate");
 const admin = require("../middleware/admin");
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
-
-const connection = require("../config/config.json");
 
 //Para indicarle donde guardar las imagenes
 const diskstorage = multer.diskStorage({
@@ -15,25 +12,20 @@ const diskstorage = multer.diskStorage({
     cb(
       null,
       Date.now() +
-        "_user_doog_training_" +
-        file.originalname.split("/")[0] +
-        "." +
-        file.mimetype.split("/")[1]
+      "_user_doog_training_" +
+        file.originalname
+        // "." +
+        // req.file.mimetype.split("/")[1]
     );
   },
 });
+
 //Asignamos el valor de la imagen a la const fileUpload
 const fileUpload = multer({
   storage: diskstorage,
-  limits: {
-    fileSize: 1000000, // 1000000 Bytes = 1 MB
-  },
-  fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(png|jpg)$/)) {// upload only png and jpg format
-      return cb(new Error("Please upload a Image"));
-    }
-    cb(undefined, true);
-  },
+  // limits: {
+  //   fileSize: 2000000, // 1000000 Bytes = 1 MB
+  // },
 }).single("image"); //El middleware recibe el nombre image que indicamos en la const formdata
 
 router.post("/", async (req, res) => {
@@ -48,35 +40,19 @@ router.post("/", async (req, res) => {
   }
 });
 
-// router.post("/image", fileUpload("image"), usersControllers.imageUpload);
-
+//Subida de imágenes
 router.post("/image", fileUpload, async (req, res) => {
   try {
     const image = req.file;
     const userId = req.file.originalname;
     res.json(await usersControllers.uploadFiles(image, userId));
-    console.log(image);
+    console.log(image, userId);
   } catch (error) {
+    console.log(error, "error");
     return res.status(500).json({
       message: error.message,
     });
   }
-  // conncetion((err, conn) => {
-  //     if(err) return res.status(500).send("Server error");
-
-  //     //Guardamos el tipo de archivo
-  //   //   const type = req.file.mimetype
-  //   //   const name = req.file.originalname
-  //     //Para leer el archivo con el módulo fs
-  //     const data = fs.readFileSync(path.join(__dirname, '../image/' + req.file.filename));
-
-  //     //Realizamos la query para insertar la img en la tabla
-  //     query("INSERT INTO image set ?", [{image: data}], (err, rows) => {
-  //         if(err) return res.status(500).send("Server error");
-
-  //         res.send("Image saved.");
-  //     });
-  // });
 });
 
 router.get("/:id", admin, async (req, res) => {
