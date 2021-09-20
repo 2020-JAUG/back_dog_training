@@ -2,12 +2,33 @@ const router = require("express").Router();
 const postControllers = require("../controllers/postControllers");
 const authenticate = require("../middleware/authenticate");
 const admin = require("../middleware/admin");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 
-router.post("/", authenticate, async(req, res) => {
+const connection = require("../config/config.json");
+
+//Para indicarle donde guardar las imagenes
+const diskstorage = multer.diskStorage({
+  destination: path.join(__dirname, "../image"),
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "_user_doog_training_" + file.originalname.split("/")[0] + "." + file.mimetype.split('/')[1]);
+  },
+});
+//Asignamos el valor de la imagen a la const fileUpload
+const fileUpload = multer({
+  storage: diskstorage,
+}).single("image"); //El middleware recibe el nombre image que indicamos en la const formdata
+
+
+router.post("/", authenticate, fileUpload, async(req, res) => {
     try {
-        const id = await postControllers.makePost(req.body);
-        const status = "success";
-        res.json({ status, id });
+        const id = req.body;
+        const image = req.file;
+        // const status = "success";
+        // res.json({ status, id });
+        res.json(await postControllers.makePost(id, image))
+        console.log('id->', id);
     } catch (error) {
         return res.status(500).json({
             message: error.message
