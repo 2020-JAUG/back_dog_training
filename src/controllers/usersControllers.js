@@ -9,26 +9,6 @@ const Image = user.image;
 
 class Users {
 
-  async uploadFiles(image, userId) {
-    // fs.renameSync(req.file.path, req.file.path + '.' +  req.file.originalname.split('/')[0] +  '.' + req.file.mimetype.split('/')[1]);
-    // console.log(req.file);
-    // res.send('Check Image');
-    // Image.create({
-      // data: fs.readFileSync(__dirname + "../image/" + req.file.filename),
-    // });
-    // return Image.create();
-    // let usuario = await User.findByPk(userId);
-    // if (userId === userId) {
-      console.log(image, 'userId-->',userId);
-      return User.update(
-        { image: image.image },
-        { where: { id: userId.id } }
-      );
-    // } else {
-      // throw new Error("Action canceled.");
-    // }
-  }
-
   async nameUser(name) {
     return User.findOne({
       where: { name },
@@ -88,6 +68,23 @@ class Users {
     let resultado =
       "La cuenta se ha activado correctamente. Ya puedes ingresar a la plataforma y conocer a la comunidad.";
     return resultado;
+  }
+
+  async uploadFiles(image, userId) {
+    // fs.renameSync(req.file.path, req.file.path + '.' +  req.file.originalname.split('/')[0] +  '.' + req.file.mimetype.split('/')[1]);
+    // console.log(req.file);
+    // res.send('Check Image');
+    // Image.create({
+    // data: fs.readFileSync(__dirname + "../image/" + req.file.filename),
+    // });
+    // return Image.create();
+    // let usuario = await User.findByPk(userId);
+    // if (userId === userId) {
+    console.log(image, "userId-->", userId);
+    return User.update({ image: image.image }, { where: { id: userId.id } });
+    // } else {
+    // throw new Error("Action canceled.");
+    // }
   }
 
   async modifyUser(body) {
