@@ -9,9 +9,9 @@ const checkMail = async (req, res, next) => {
       throw new Error("The email is already registered.");
     }
     return next();
-  } catch (error) {
+  } catch (err) {
     res.status(500).json({
-      message: error.message,
+      message: err.message,
     });
   };
 };
