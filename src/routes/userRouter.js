@@ -4,6 +4,7 @@ const authenticate = require("../middleware/authenticate");
 const admin = require("../middleware/admin");
 const multer = require("multer");
 const path = require("path");
+const checkMail = require('../middleware/checkMail.js');
 
 //Para indicarle donde guardar las imagenes
 const diskstorage = multer.diskStorage({
@@ -28,7 +29,7 @@ const fileUpload = multer({
   // },
 }).single("image"); //El middleware recibe el nombre image que indicamos en la const formdata
 
-router.post("/", async (req, res) => {
+router.post("/", checkMail, async (req, res) => {
   try {
     const id = await usersControllers.createUser(req.body);
     const status = "success";
