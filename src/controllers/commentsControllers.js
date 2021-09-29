@@ -1,6 +1,5 @@
 const { Comments } = require("../models");
-const findById = require("../models");
-const router = require("../routes/commentsRouter");
+const { Post } = require("../models");
 
 class Msj {
   constructor() {}
@@ -9,8 +8,10 @@ class Msj {
     return Comments.create(comment);
   }
 
-  async findAllComments() {
-    return Comments.findAll();
+  async comments_by_postId(postId) {
+    return Comments.findAll({
+      where: { postId: postId },
+    });
   }
 
   async removeComment(data) {
