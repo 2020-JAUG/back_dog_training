@@ -26,10 +26,11 @@ router.delete("/deletecomment", authenticate, async(req, res) => {
     }
 });
 
-//El administrador podrá ver todos los posts
-router.get("/",  async(req, res) => {
+//Find all comments by postId
+router.post("/bypostid",  async(req, res) => {
     try {
-        res.json(await commentsControllers.findAllComments());
+        const postId = req.body.id;
+        res.json(await commentsControllers.comments_by_postId(postId));
     } catch (error) {
         return res.status(500).json({
             message: error.message
