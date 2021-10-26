@@ -3,21 +3,16 @@ const nodemailer = require("nodemailer");
 const user = "movieretro6@gmail.com";
 const pass = "333movie333";
 
-// const transport = nodemailer.createTransport({
-//   service: "Gmail",
-//   auth: {
-//     user: user,
-//     pass: pass,
-//   },
-// });
-var transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 2525,
+const transport = nodemailer.createTransport({
+  service: "Gmail",
   auth: {
-    user: "6298bf9fe37f28",
-    pass: "3323381b61ca6a"
-  }
+    user: user,
+    pass: pass,
+    secure: true,
+    proxy: 'http://proxy-host:1234'
+  },
 });
+
 module.exports.sendConfirmationEmail = (name, email, confirmationCode) => {
   transport.sendMail({
     from: user,
