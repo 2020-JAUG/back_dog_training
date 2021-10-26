@@ -1,22 +1,15 @@
 const nodemailer = require("nodemailer");
 
+const user = "movieretro6@gmail.com";
+const pass = "333movie333";
+
 const transport = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  service: "Gmail",
   auth: {
-    user: "movieretro6@gmail.com",
-    pass: "333movie333"
+    user: user,
+    pass: pass
   },
 });
-// const transport = nodemailer.createTransport({
-//   service: "Gmail",
-//   auth: {
-//     user: user,
-//     pass: pass
-//medaqgitcwtgdgbm
-//   },
-// });
 
 module.exports.sendConfirmationEmail = (name, email, confirmationCode) => {
   transport.sendMail({
