@@ -24,6 +24,17 @@ module.exports = {
         createdAt: "2021-04-24"
       },
       {
+        name: "Bea",
+        lastName: "Henson",
+        password: "$2b$10$6CU2Z0A8N3ZxpfNnHsD8z.JpQoQDp0I0hgcEgaJrJeva6LmFBpDGC",
+        //pass:gitlog
+        city: "Manila",
+        email: "bea@cv.es",
+        isAdmin: false,
+        updatedAt: "2021-01-24",
+        createdAt: "2021-01-24"
+      },
+      {
         name: "Alejandro",
         lastName: "Urbina",
         password: "$2b$10$Mz7t6/vkgd8E0LzIFIUtPO3SSbC2KiSQSloskqq10zIEeuvEqD5dC",
@@ -92,6 +103,16 @@ module.exports = {
         isAdmin: false,
         updatedAt: "2021-03-21",
         createdAt: "2021-03-21"
+      },
+      {
+        name: "Carlos",
+        lastName: "Latre",
+        password: "$2b$10$A.iOiEC9Rej18ka2b4sHae6dX1DoSe7sGDH57AgDsGs94EF9a67B2",
+        city: "Tokio",
+        email: "carlos@cv.es",
+        isAdmin: false,
+        updatedAt: "2021-06-21",
+        createdAt: "2021-06-21"
       },
     ]
 
