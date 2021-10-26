@@ -4,8 +4,7 @@
     "password": "5316ef1d",
     "database": "heroku_ad360d863d0cccd",
     "host": "eu-cdbr-west-01.cleardb.com",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
@@ -19,7 +18,6 @@
     "password": "5316ef1d",
     "database": "heroku_ad360d863d0cccd",
     "host": "eu-cdbr-west-01.cleardb.com",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   }
 }
