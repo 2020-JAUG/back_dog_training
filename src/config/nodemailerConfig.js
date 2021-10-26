@@ -1,15 +1,12 @@
 const nodemailer = require("nodemailer");
 
-const user = "movieretro6@gmail.com";
-const pass = "una y p p u b f p";
-
 const transport = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   secure: true,
   auth: {
-    user: user,
-    pass: pass
+    user: "movieretro6@gmail.com",
+    pass: "medaqgitcwtgdgbm"
   },
 });
 // const transport = nodemailer.createTransport({
@@ -17,7 +14,7 @@ const transport = nodemailer.createTransport({
 //   auth: {
 //     user: user,
 //     pass: pass
-//una y p p u b f p
+//medaqgitcwtgdgbm
 //   },
 // });
 
