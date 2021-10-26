@@ -47,7 +47,7 @@ class Users {
     //   token: token,
     // };
 
-    let usuario = await User.create(user);
+    return User.create(user);
 
     //Llamamos a la funcion para enviar el correo al usuario.
     // await nodemailer.sendConfirmationEmail(user.name, user.email, token);
