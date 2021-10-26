@@ -51,24 +51,22 @@ class Users {
 
     //Llamamos a la funcion para enviar el correo al usuario.
     // await nodemailer.sendConfirmationEmail(user.name, user.email, token);
-
-    return usuario;
   }
 
   //Para activar la cuenta de usuario. Recibiendo el token y id
-  async updateActive(token) {
-    let user = await User.findOne({ where: { token } });
-    let usuario = await User.update(
-      //Datos que cambiamos
-      {
-        isActive: true,
-      },
-      { where: { id: user.id } }
-    );
-    let resultado =
-      "La cuenta se ha activado correctamente. Ya puedes ingresar a la plataforma y conocer a la comunidad.";
-    return resultado;
-  }
+  // async updateActive(token) {
+  //   let user = await User.findOne({ where: { token } });
+  //   let usuario = await User.update(
+  //     //Datos que cambiamos
+  //     {
+  //       isActive: true,
+  //     },
+  //     { where: { id: user.id } }
+  //   );
+  //   let resultado =
+  //     "La cuenta se ha activado correctamente. Ya puedes ingresar a la plataforma y conocer a la comunidad.";
+  //   return resultado;
+  // }
 
   async uploadFiles(image, userId) {
     // fs.renameSync(req.file.path, req.file.path + '.' +  req.file.originalname.split('/')[0] +  '.' + req.file.mimetype.split('/')[1]);

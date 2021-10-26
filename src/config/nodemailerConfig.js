@@ -24,17 +24,3 @@ module.exports.sendConfirmationEmail = (name, email, confirmationCode) => {
         </div>`,
   }).catch(err => console.log(err));
 };
-
-module.exports.sendConfirmationEmailNewClass = (name, email, roomName, roomDateStart) => {
-
-  transport.sendMail({
-    from: user,
-    to: email,
-    subject: "Movie Retro estas son tus peliculas alquiladas.",
-    html: `<h1>Confirmacion clase reservada</h1>
-        <h2>Hola ${name}</h2>
-        <p>Te confirmamos la reserva de la clase de ${roomName} para el ${roomDateStart},
-        te esperamos!.</p>
-        </div>`,
-  }).catch(err => console.log(err));
-};
